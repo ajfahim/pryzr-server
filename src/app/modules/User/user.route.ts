@@ -24,5 +24,15 @@ router.put(
   validateRequest(UserValidation.updateUserProfileValidationSchema),
   UserControllers.updateProfile,
 );
+router.post(
+  '/password-reset',
+  validateRequest(UserValidation.userResetPasswordRequestValidationSchema),
+  UserControllers.resetPasswordRequest,
+);
+router.put(
+  '/password-reset',
+  validateRequest(UserValidation.userResetPasswordValidationSchema),
+  UserControllers.resetPassword,
+);
 
 export const UserRoutes = router;

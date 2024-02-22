@@ -33,7 +33,6 @@ const userSchema = new Schema<TUser, UserModel>(
     password_hash: {
       type: String,
       required: true,
-      select: 0,
     },
 
     role: {

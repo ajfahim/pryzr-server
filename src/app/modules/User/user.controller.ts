@@ -52,9 +52,36 @@ const updateProfile = catchAsync(async (req, res) => {
   });
 });
 
+const resetPasswordRequest = catchAsync(async (req, res) => {
+  const { _id } = req.body;
+  const result = await UserServices.resetPasswordRequest(_id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Password reset link sent successfully',
+    data: result,
+  });
+});
+
+const resetPassword = catchAsync(async (req, res) => {
+  const payload = req.body;
+  const token = req.headers.authorization;
+  const result = await UserServices.resetPassword(payload, token as string);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Password reset successful',
+    data: result,
+  });
+});
+
 export const UserControllers = {
   register,
   login,
   getProfile,
   updateProfile,
+  resetPasswordRequest,
+  resetPassword,
 };

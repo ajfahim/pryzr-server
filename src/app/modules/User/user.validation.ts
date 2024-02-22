@@ -23,7 +23,8 @@ const userRegistrationValidationSchema = z.object({
       .string({
         invalid_type_error: 'Password must be string',
       })
-      .max(20, { message: 'Password can not be more than 20 characters' }),
+      .min(6, 'Password must have at least 6 characters')
+      .max(15, 'Password can not have more than 15 characters'),
     profile: userProfileValidationSchema,
   }),
 });
@@ -39,8 +40,30 @@ const userLoginValidationSchema = z.object({
   }),
 });
 
+const userResetPasswordRequestValidationSchema = z.object({
+  body: z.object({
+    _id: z.string({
+      required_error: 'User Id is required',
+    }),
+  }),
+});
+
+const userResetPasswordValidationSchema = z.object({
+  body: z.object({
+    _id: z.string({
+      required_error: 'User Id is required',
+    }),
+    newPassword: z
+      .string({ required_error: 'New password is required' })
+      .min(6, 'Password must have at least 6 characters')
+      .max(15, 'Password can not have more than 15 characters'),
+  }),
+});
+
 export const UserValidation = {
   userRegistrationValidationSchema,
   userLoginValidationSchema,
   updateUserProfileValidationSchema,
+  userResetPasswordRequestValidationSchema,
+  userResetPasswordValidationSchema,
 };
