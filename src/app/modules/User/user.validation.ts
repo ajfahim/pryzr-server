@@ -1,5 +1,13 @@
 import { z } from 'zod';
 
+const userProfileValidationSchema = z.object({
+  name: z.string().min(4, 'Name must have at least 4 characters'),
+  credits: z.number().default(0).optional(),
+  reset_password_token: z.string().optional(),
+  reset_password_expires: z.date().optional(),
+  status: z.enum(['active', 'blocked']).optional(),
+});
+
 const userRegistrationValidationSchema = z.object({
   body: z.object({
     userName: z
@@ -12,6 +20,7 @@ const userRegistrationValidationSchema = z.object({
         invalid_type_error: 'Password must be string',
       })
       .max(20, { message: 'Password can not be more than 20 characters' }),
+    profile: userProfileValidationSchema,
   }),
 });
 

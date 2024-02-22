@@ -28,6 +28,11 @@ const login = async (payload: { email: string; password_hash: string }) => {
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'User not Found');
   }
+
+  if (user.profile.status !== 'active') {
+    throw new AppError(httpStatus.FORBIDDEN, 'User is not active');
+  }
+
   const passwordMatched = User.isPasswordMatched(
     payload.password_hash,
     user.password_hash,

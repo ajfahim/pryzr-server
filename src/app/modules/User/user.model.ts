@@ -2,7 +2,42 @@
 import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 import config from '../../config';
-import { TUser, UserModel } from './user.interface';
+import { TAction, TProfile, TUser, UserModel } from './user.interface';
+
+const profileSchema = new Schema<TProfile>({
+  name: {
+    type: String,
+    required: true,
+  },
+  credits: {
+    type: Number,
+    default: 0,
+  },
+  reset_password_expires: {
+    type: Date,
+  },
+  reset_password_token: {
+    type: String,
+  },
+  status: {
+    type: String,
+    enum: ['active', 'blocked'],
+  },
+});
+
+const actionSchema = new Schema<TAction>(
+  {
+    action_type: {
+      type: String,
+      enum: ['credit_Purchase', 'credit_withdrawal', 'enter_game'],
+    },
+    credits: {
+      type: Number,
+      default: 0,
+    },
+  },
+  { timestamps: true },
+);
 
 const userSchema = new Schema<TUser, UserModel>(
   {
@@ -30,10 +65,10 @@ const userSchema = new Schema<TUser, UserModel>(
       type: Date,
     },
     profile: {
-      type: [],
+      type: profileSchema,
     },
     actions: {
-      type: [],
+      type: [actionSchema],
     },
   },
   {
