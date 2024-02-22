@@ -22,6 +22,7 @@ const profileSchema = new Schema<TProfile>({
   status: {
     type: String,
     enum: ['active', 'blocked'],
+    default: 'active',
   },
 });
 
@@ -60,6 +61,7 @@ const userSchema = new Schema<TUser, UserModel>(
     role: {
       type: String,
       enum: ['user', 'admin'],
+      default: 'user',
     },
     last_login: {
       type: Date,

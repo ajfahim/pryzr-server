@@ -10,10 +10,11 @@ const register = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User Registered successfully',
+    message: 'User registered successfully',
     data: result,
   });
 });
+
 const login = catchAsync(async (req, res) => {
   const payload = req.body;
   const result = await UserServices.login(payload);
@@ -21,7 +22,19 @@ const login = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User Logged In successfully',
+    message: 'User logged in successfully',
+    data: result,
+  });
+});
+
+const getProfile = catchAsync(async (req, res) => {
+  const { _id } = req.user;
+  const result = await UserServices.getProfile(_id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User profile retrieved successfully',
     data: result,
   });
 });
@@ -29,4 +42,5 @@ const login = catchAsync(async (req, res) => {
 export const UserControllers = {
   register,
   login,
+  getProfile,
 };
