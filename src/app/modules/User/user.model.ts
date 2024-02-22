@@ -2,29 +2,7 @@
 import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 import config from '../../config';
-import { TAction, TProfile, TUser, UserModel } from './user.interface';
-
-const profileSchema = new Schema<TProfile>({
-  name: {
-    type: String,
-    required: true,
-  },
-  credits: {
-    type: Number,
-    default: 0,
-  },
-  reset_password_expires: {
-    type: Date,
-  },
-  reset_password_token: {
-    type: String,
-  },
-  status: {
-    type: String,
-    enum: ['active', 'blocked'],
-    default: 'active',
-  },
-});
+import { TAction, TUser, UserModel } from './user.interface';
 
 const actionSchema = new Schema<TAction>(
   {
@@ -67,7 +45,25 @@ const userSchema = new Schema<TUser, UserModel>(
       type: Date,
     },
     profile: {
-      type: profileSchema,
+      name: {
+        type: String,
+        required: true,
+      },
+      credits: {
+        type: Number,
+        default: 0,
+      },
+      reset_password_expires: {
+        type: Date,
+      },
+      reset_password_token: {
+        type: String,
+      },
+      status: {
+        type: String,
+        enum: ['active', 'blocked'],
+        default: 'active',
+      },
     },
     actions: {
       type: [actionSchema],
@@ -82,10 +78,12 @@ userSchema.pre('save', async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this; // doc
   // hashing password and save into DB
-  user.password_hash = await bcrypt.hash(
-    user.password_hash,
-    Number(config.bcrypt_salt_rounds),
-  );
+  if (user.isModified('password_hash') || user.isNew) {
+    user.password_hash = await bcrypt.hash(
+      user.password_hash,
+      Number(config.bcrypt_salt_rounds),
+    );
+  }
   next();
 });
 

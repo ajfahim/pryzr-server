@@ -3,9 +3,13 @@ import { z } from 'zod';
 const userProfileValidationSchema = z.object({
   name: z.string().min(4, 'Name must have at least 4 characters'),
   credits: z.number().default(0).optional(),
-  reset_password_token: z.string().optional(),
-  reset_password_expires: z.date().optional(),
-  status: z.enum(['active', 'blocked']).optional(),
+});
+
+const updateUserProfileValidationSchema = z.object({
+  body: z.object({
+    name: z.string().min(4, 'Name must have at least 4 characters').optional(),
+    credits: z.number().default(0).optional(),
+  }),
 });
 
 const userRegistrationValidationSchema = z.object({
@@ -38,4 +42,5 @@ const userLoginValidationSchema = z.object({
 export const UserValidation = {
   userRegistrationValidationSchema,
   userLoginValidationSchema,
+  updateUserProfileValidationSchema,
 };

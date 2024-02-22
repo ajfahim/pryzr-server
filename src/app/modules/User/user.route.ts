@@ -17,6 +17,12 @@ router.post(
   validateRequest(UserValidation.userLoginValidationSchema),
   UserControllers.login,
 );
-router.get('/profile', auth('user', 'admin'), UserControllers.getProfile);
+router.get('/profile', auth('user'), UserControllers.getProfile);
+router.put(
+  '/profile',
+  auth('user'),
+  validateRequest(UserValidation.updateUserProfileValidationSchema),
+  UserControllers.updateProfile,
+);
 
 export const UserRoutes = router;

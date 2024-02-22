@@ -5,7 +5,7 @@ import httpStatus from 'http-status';
 import { Types } from 'mongoose';
 import config from '../../config';
 import AppError from '../../errors/AppError';
-import { TUser } from './user.interface';
+import { TProfile, TUser } from './user.interface';
 import { User } from './user.model';
 import { createToken } from './user.utils';
 
@@ -65,8 +65,24 @@ const getProfile = async (_id: Types.ObjectId) => {
   return user?.profile;
 };
 
+const updateProfile = async (_id: Types.ObjectId, payload: TProfile) => {
+  // Find the user by _id
+  const user = await User.findById(_id);
+
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, 'User not found');
+  }
+
+  // Update the profile fields with the payload
+  user.profile = { ...user.profile, ...payload };
+
+  // Save the updated user
+  await user.save();
+};
+
 export const UserServices = {
   register,
   login,
   getProfile,
+  updateProfile,
 };
