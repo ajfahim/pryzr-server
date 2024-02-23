@@ -8,11 +8,22 @@ const transactionAnalytics = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Transaction successful',
+    message: 'Data retrieved successfully',
+    data: result,
+  });
+});
+
+const userAnalytics = catchAsync(async (req, res) => {
+  const result = await AnalyticsServices.userAnalytics();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Data retrieved successfully',
     data: result,
   });
 });
 
 export const AnalyticsController = {
   transactionAnalytics,
+  userAnalytics,
 };

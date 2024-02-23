@@ -10,4 +10,6 @@ router.get(
   AnalyticsController.transactionAnalytics,
 );
 
+router.get('/users', auth('admin'), AnalyticsController.userAnalytics);
+
 export const AnalyticsRoutes = router;

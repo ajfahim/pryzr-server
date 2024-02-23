@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { User } from '../User/user.model';
 import { Transaction } from '../transaction/transaction.model';
 
 const transactionAnalytics = async () => {
@@ -29,6 +30,33 @@ const transactionAnalytics = async () => {
   return result;
 };
 
+const userAnalytics = async () => {
+  // Get today's date
+  const today = dayjs().startOf('day').toDate();
+
+  // Get the start of the current month
+  const startOfMonth = dayjs().startOf('month').toDate();
+
+  // Count total number of users
+  const totalUsersCount = await User.countDocuments({});
+
+  // Count number of users registered today
+  const usersRegisteredTodayCount = await User.countDocuments({
+    createdAt: { $gte: today },
+  });
+
+  // Count number of users registered this month
+  const usersRegisteredThisMonthCount = await User.countDocuments({
+    createdAt: { $gte: startOfMonth },
+  });
+
+  return {
+    totalUsersCount,
+    usersRegisteredTodayCount,
+    usersRegisteredThisMonthCount,
+  };
+};
 export const AnalyticsServices = {
   transactionAnalytics,
+  userAnalytics,
 };
