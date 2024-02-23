@@ -17,14 +17,14 @@ const userRegistrationValidationSchema = z.object({
     userName: z
       .string()
       .min(4, { message: 'userName must have at least 4 characters' })
-      .max(10, { message: 'userName can not  have more than 10 characters' }),
+      .max(50, { message: 'userName can not  have more than 50 characters' }),
     email: z.string().email(),
     password_hash: z
       .string({
         invalid_type_error: 'Password must be string',
       })
       .min(6, 'Password must have at least 6 characters')
-      .max(15, 'Password can not have more than 15 characters'),
+      .max(50, 'Password can not have more than 50 characters'),
     profile: userProfileValidationSchema,
   }),
 });

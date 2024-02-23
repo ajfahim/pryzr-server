@@ -14,6 +14,19 @@ const getAllUsers = catchAsync(async (req, res) => {
   });
 });
 
+const createNewUser = catchAsync(async (req, res) => {
+  const payload = req.body;
+  const result = await AdminServices.createNewUser(payload);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User created successfully',
+    data: result,
+  });
+});
+
 export const AdminControllers = {
   getAllUsers,
+  createNewUser,
 };
