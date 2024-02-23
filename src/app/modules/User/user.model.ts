@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
+import aggregatePaginate from 'mongoose-aggregate-paginate-v2';
 import config from '../../config';
 import { TAction, TUser, UserModel } from './user.interface';
 
@@ -99,4 +100,5 @@ userSchema.statics.isPasswordMatched = async function (
   return await bcrypt.compare(plainTextPassword, hashedPassword);
 };
 
+userSchema.plugin(aggregatePaginate);
 export const User = model<TUser, UserModel>('User', userSchema);

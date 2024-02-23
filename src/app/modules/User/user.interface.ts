@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Model } from 'mongoose';
+import { Aggregate, Model } from 'mongoose';
 import { USER_ROLE } from './user.constant';
 
 export type TProfile = {
@@ -26,6 +26,10 @@ export interface TUser {
 }
 
 export interface UserModel extends Model<TUser> {
+  aggregatePaginate(
+    arg0: Aggregate<any[]>,
+    arg1: { limit: number; page: number },
+  ): unknown;
   //instance methods for checking if passwords are matched
   isPasswordMatched(
     plainTextPassword: string,

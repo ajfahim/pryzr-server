@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { UserRoutes } from '../modules/User/user.route';
+import { AdminActionRoutes } from '../modules/adminActions/adminAction.routes';
 import { GamesRoutes } from '../modules/games/games.routes';
 import { TransactionRoutes } from '../modules/transaction/transaction.routes';
 
@@ -18,6 +19,10 @@ const moduleRoutes = [
   {
     path: '/transactions',
     route: TransactionRoutes,
+  },
+  {
+    path: '/admin',
+    route: AdminActionRoutes,
   },
 ];
 
