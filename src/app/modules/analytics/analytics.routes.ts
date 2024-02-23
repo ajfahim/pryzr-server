@@ -11,5 +11,6 @@ router.get(
 );
 
 router.get('/users', auth('admin'), AnalyticsController.userAnalytics);
+router.get('/gameplays', auth('admin'), AnalyticsController.gamePlayAnalytics);
 
 export const AnalyticsRoutes = router;

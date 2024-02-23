@@ -23,7 +23,18 @@ const userAnalytics = catchAsync(async (req, res) => {
   });
 });
 
+const gamePlayAnalytics = catchAsync(async (req, res) => {
+  const result = await AnalyticsServices.gamePlayAnalytics();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Data retrieved successfully',
+    data: result,
+  });
+});
+
 export const AnalyticsController = {
   transactionAnalytics,
   userAnalytics,
+  gamePlayAnalytics,
 };
