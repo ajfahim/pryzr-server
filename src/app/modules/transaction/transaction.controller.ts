@@ -31,7 +31,6 @@ const withdrawCredits = catchAsync(async (req, res) => {
 
 const getTransactionsByUserId = catchAsync(async (req, res) => {
   const { userId } = req.params;
-  console.log('🚀 ~ getTransactionsByUserId ~ user_id:', userId);
   const result = await TransactionServices.getTransactionsByUserId(
     userId,
     req.query,

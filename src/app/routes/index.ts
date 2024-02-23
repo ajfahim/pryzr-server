@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import { UserRoutes } from '../modules/User/user.route';
 import { AdminActionRoutes } from '../modules/adminActions/adminAction.routes';
+import { AnalyticsRoutes } from '../modules/analytics/analytics.routes';
 import { GamesRoutes } from '../modules/games/games.routes';
 import { TransactionRoutes } from '../modules/transaction/transaction.routes';
 
@@ -23,6 +24,10 @@ const moduleRoutes = [
   {
     path: '/admin',
     route: AdminActionRoutes,
+  },
+  {
+    path: '/analytics',
+    route: AnalyticsRoutes,
   },
 ];
 
