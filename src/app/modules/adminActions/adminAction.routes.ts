@@ -20,11 +20,19 @@ router.put(
   validateRequest(AdminActionsValidation.updateUserValidationSchema),
   AdminControllers.updateUser,
 );
+
 router.put(
   '/users/:userId/credits',
   auth('admin'),
   validateRequest(AdminActionsValidation.updateUserCreditValidationSchema),
   AdminControllers.updateCredits,
+);
+
+router.put(
+  '/users/:userId/status',
+  auth('admin'),
+  validateRequest(AdminActionsValidation.updateUserStatusValidationSchema),
+  AdminControllers.updateStatus,
 );
 
 export const AdminActionRoutes = router;

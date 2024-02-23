@@ -88,7 +88,6 @@ const resetPassword = async (
   payload: { _id: Types.ObjectId; newPassword: string },
   token: string,
 ) => {
-  console.log('🚀 ~ payload:', payload);
   const user = await User.findById(payload._id);
 
   if (!user) {
@@ -133,10 +132,7 @@ const resetPasswordRequest = async (_id: Types.ObjectId) => {
     '10m',
   );
   const passwordResetLink = `${config.reset_pass_ui_link}?id=${user._id}&token=${resetToken}`;
-  console.log(
-    '🚀 ~ resetPasswordRequest ~ passwordResetLink:',
-    passwordResetLink,
-  );
+
   sendEmail('ajfahim52@gmail.com', passwordResetLink);
 };
 

@@ -27,7 +27,16 @@ const updateUserCreditValidationSchema = z.object({
   }),
 });
 
+const updateUserStatusValidationSchema = z.object({
+  body: z.object({
+    status: z.enum(['active', 'blocked'], {
+      required_error: 'Status type is required',
+    }),
+  }),
+});
+
 export const AdminActionsValidation = {
   updateUserValidationSchema,
   updateUserCreditValidationSchema,
+  updateUserStatusValidationSchema,
 };

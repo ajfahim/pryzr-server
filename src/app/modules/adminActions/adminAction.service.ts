@@ -80,9 +80,31 @@ const updateCredits = async (
   }
 };
 
+const updateStatus = async (
+  _id: string,
+  payload: { status: 'active' | 'blocked' },
+) => {
+  const user = await User.findById(_id);
+
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, 'User not found');
+  }
+
+  if (payload.status === 'active') {
+    user.profile.status! = 'active';
+    await user.save();
+  }
+
+  if (payload.status === 'blocked') {
+    user.profile.status! = 'blocked';
+    await user.save();
+  }
+};
+
 export const AdminServices = {
   getAllUsers,
   createNewUser,
   updateUser,
   updateCredits,
+  updateStatus,
 };

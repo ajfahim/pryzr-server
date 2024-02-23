@@ -54,9 +54,24 @@ const updateCredits = catchAsync(async (req, res) => {
   });
 });
 
+const updateStatus = catchAsync(async (req, res) => {
+  const payload = req.body;
+  const { userId } = req.params;
+
+  const result = await AdminServices.updateStatus(userId, payload);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Status Updated successfully',
+    data: result,
+  });
+});
+
 export const AdminControllers = {
   getAllUsers,
   createNewUser,
   updateUser,
   updateCredits,
+  updateStatus,
 };
