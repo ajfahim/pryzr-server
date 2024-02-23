@@ -4,9 +4,14 @@ import { User } from '../modules/User/user.model';
 
 const superUser = {
   email: 'admin@gmail.com',
-  password_hash: config.admin_password,
+  password_hash: config.admin_password as string,
   userName: 'admin',
   role: USER_ROLE.admin,
+  profile: {
+    name: 'Admin',
+    status: 'active',
+    credits: 0,
+  },
 };
 
 const seedSuperAdmin = async () => {

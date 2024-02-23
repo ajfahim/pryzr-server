@@ -94,7 +94,20 @@ const withdrawCredits = async (user_id: string, payload: TTransaction) => {
   }
 };
 
+const getTransactionsByUserId = async (
+  user_id: string,
+  query: Record<string, unknown>,
+) => {
+  const page = Number(query?.page) || 1;
+  const limit = Number(query?.limit) || 10;
+  const skip = (page - 1) * limit;
+  const transactions = await Transaction.find({ user_id }).skip(skip);
+
+  return transactions;
+};
+
 export const TransactionServices = {
   purchaseCredit,
   withdrawCredits,
+  getTransactionsByUserId,
 };

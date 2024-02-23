@@ -4,9 +4,9 @@ import { USER_ROLE } from './user.constant';
 
 export type TProfile = {
   name: string;
-  credits: number;
-  reset_password_token: string;
-  reset_password_expires: Date;
+  credits?: number;
+  reset_password_token?: string;
+  reset_password_expires?: Date;
   status: 'active' | 'blocked';
 };
 

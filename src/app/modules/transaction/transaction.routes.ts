@@ -23,4 +23,10 @@ router.post(
   TransactionControllers.withdrawCredits,
 );
 
+router.get(
+  '/user/:userId',
+  auth('admin'),
+  TransactionControllers.getTransactionsByUserId,
+);
+
 export const TransactionRoutes = router;
