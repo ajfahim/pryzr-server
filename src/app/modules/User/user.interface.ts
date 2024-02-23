@@ -12,7 +12,7 @@ export type TProfile = {
 
 export type TAction = {
   action_type: 'credit_Purchase' | 'credit_withdrawal' | 'enter_game';
-  credits: number;
+  credits?: number;
   timeStamp: Date;
 };
 export interface TUser {

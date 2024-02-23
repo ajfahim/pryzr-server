@@ -57,6 +57,8 @@ const login = async (payload: { email: string; password_hash: string }) => {
     config.jwt_access_secret as string,
     config.jwt_access_expires_in as string,
   );
+  user.last_login = new Date();
+  await user.save();
   return { accessToken };
 };
 
