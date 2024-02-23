@@ -1,4 +1,5 @@
 import { Schema, Types, model } from 'mongoose';
+import aggregatePaginate from 'mongoose-aggregate-paginate-v2';
 import { TGamePlayRecord } from './gameplayRecords.interface';
 
 const gamePlayRecordSchema = new Schema<TGamePlayRecord>({
@@ -24,6 +25,7 @@ const gamePlayRecordSchema = new Schema<TGamePlayRecord>({
   },
 });
 
+gamePlayRecordSchema.plugin(aggregatePaginate);
 export const GamePlayRecord = model<TGamePlayRecord>(
   'GamePlayRecord',
   gamePlayRecordSchema,

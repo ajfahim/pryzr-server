@@ -36,5 +36,6 @@ router.put(
 );
 
 router.get('/transactions', auth('admin'), AdminControllers.getAllTransactions);
+router.get('/gameplays', auth('admin'), AdminControllers.getGamePlayRecords);
 
 export const AdminActionRoutes = router;

@@ -81,6 +81,17 @@ const getAllTransactions = catchAsync(async (req, res) => {
   });
 });
 
+const getGamePlayRecords = catchAsync(async (req, res) => {
+  const result = await AdminServices.getGamePlayRecords(req.query);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Transactions retrieved successfully',
+    data: result,
+  });
+});
+
 export const AdminControllers = {
   getAllUsers,
   createNewUser,
@@ -88,4 +99,5 @@ export const AdminControllers = {
   updateCredits,
   updateStatus,
   getAllTransactions,
+  getGamePlayRecords,
 };

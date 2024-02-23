@@ -3,6 +3,7 @@ import mongoose, { Types } from 'mongoose';
 import AppError from '../../errors/AppError';
 import { TUser } from '../User/user.interface';
 import { User } from '../User/user.model';
+import { GamePlayRecord } from '../gameplayRecords/gamePlayRecords.model';
 import { Transaction } from '../transaction/transaction.model';
 import { TAdminAction } from './adminAction.interface';
 import { AdminAction } from './adminAction.model';
@@ -198,6 +199,67 @@ const getAllTransactions = async (query: Record<string, unknown>) => {
 
   return transactions;
 };
+const getGamePlayRecords = async (query: Record<string, unknown>) => {
+  const page = Number(query?.page) || 1;
+  const limit = Number(query?.limit) || 10;
+  //@ts-expect-error not a error
+  const gamePlay = await GamePlayRecord.aggregatePaginate(
+    GamePlayRecord.aggregate([
+      {
+        $lookup: {
+          from: 'games',
+          localField: 'game_id',
+          foreignField: '_id',
+          as: 'game',
+          pipeline: [
+            {
+              $project: {
+                name: 1,
+                description: 1,
+                rtp_percentage: 1,
+              },
+            },
+          ],
+        },
+      },
+      {
+        $unwind: '$game',
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'user_id',
+          foreignField: '_id',
+          as: 'user',
+          pipeline: [
+            {
+              $project: {
+                userName: 1,
+                email: 1,
+                role: 1,
+              },
+            },
+          ],
+        },
+      },
+      {
+        $unwind: '$user',
+      },
+      {
+        $project: {
+          user_id: 0,
+          game_id: 0,
+        },
+      },
+    ]),
+    {
+      limit,
+      page,
+    },
+  );
+
+  return gamePlay;
+};
 
 export const AdminServices = {
   getAllUsers,
@@ -206,4 +268,5 @@ export const AdminServices = {
   updateCredits,
   updateStatus,
   getAllTransactions,
+  getGamePlayRecords,
 };
