@@ -1,0 +1,863 @@
+{
+	"info": {
+		"_postman_id": "af53d596-5467-4291-bbb7-886baed98856",
+		"name": "Pryzr",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13328969",
+		"_collection_link": "https://lunar-meadow-782618.postman.co/workspace/Fahim~1fec3bfa-9789-4a38-94a3-2437d7835c5e/collection/13328969-af53d596-5467-4291-bbb7-886baed98856?action=share&source=collection_link&creator=13328969"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User Registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n    \"userName\": \"johnDoe\",\n    \"email\": \"johndoe@example.com\",\n    \"password_hash\": \"123123123\",\n    \"profile\":{\n        \"name\":\"Jon Doe\"\n    }\n  \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-pyzr}}/users/register",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userToken-pryzr}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jon Doe3\",\n    \"credits\": 100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-pyzr}}/users/profile",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//user cerdentials\n{\n    \"email\": \"johndoe@example.com\",\n    \"password_hash\": \"123123123\"\n}\n// Admin credentials\n// {\n//     \"email\": \"admin@gmail.com\",\n//     \"password_hash\": \"admin12345\"\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-pyzr}}/users/login",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"_id\": \"65d70217cb63610a8c5f2cc9\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-pyzr}}/users/password-reset",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"users",
+								"password-reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ3MDIxN2NiNjM2MTBhOGM1ZjJjYzkiLCJ1c2VyTmFtZSI6ImpvaG5Eb2UiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcwODYyMTE4MywiZXhwIjoxNzA4NjIxNzgzfQ.4Oxamiqy42vpej20JBvFgTULFnQiz7tCUJKms3pxhvc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n  \n    \"_id\": \"65d70217cb63610a8c5f2cc9\",\n    \"newPassword\": \"123123123\"\n  \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-pyzr}}/users/password-reset",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"users",
+								"password-reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OWEyNDUzMWQ5ZmMxNjAyMGJmMjIiLCJ1c2VyTmFtZSI6ImpvaG5Eb2UiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcwODY5NDEyOSwiZXhwIjoxNzA5NTU4MTI5fQ.xaorPM-fIJhAlCQ7cqVQVhOp6ZLs6PTq80Auz6rncLg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-pyzr}}/users/profile",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Action History",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OWEyNDUzMWQ5ZmMxNjAyMGJmMjIiLCJ1c2VyTmFtZSI6ImpvaG5Eb2UiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcwODY5NDEyOSwiZXhwIjoxNzA5NTU4MTI5fQ.xaorPM-fIJhAlCQ7cqVQVhOp6ZLs6PTq80Auz6rncLg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-pyzr}}/users/actions",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"users",
+								"actions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Games Collection",
+			"item": [
+				{
+					"name": "Create Game",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OWEyNDUzMWQ5ZmMxNjAyMGJmMjIiLCJ1c2VyTmFtZSI6ImpvaG5Eb2UiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcwODY5NDEyOSwiZXhwIjoxNzA5NTU4MTI5fQ.xaorPM-fIJhAlCQ7cqVQVhOp6ZLs6PTq80Auz6rncLg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Example Game\",\n    \"description\": \"This is an example description for the game. It should be at least 10 characters long and no more than 500 characters.\",\n    \"thumbnail_url\": \"https://example.com/thumbnail.jpg\"\n  }\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-pyzr}}/games",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"games"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Game Play",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OWEyNDUzMWQ5ZmMxNjAyMGJmMjIiLCJ1c2VyTmFtZSI6ImpvaG5Eb2UiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcwODY5NDEyOSwiZXhwIjoxNzA5NTU4MTI5fQ.xaorPM-fIJhAlCQ7cqVQVhOp6ZLs6PTq80Auz6rncLg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"game_id\": \"65d89a87531d9fc16020bf2c\",\n    \"bet_credits\": 5090,\n    \"win_credits\": 6678\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-pyzr}}/games/play",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"games",
+								"play"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Games",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ3MDIxN2NiNjM2MTBhOGM1ZjJjYzkiLCJ1c2VyTmFtZSI6ImpvaG5Eb2UiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcwODY2OTI2NywiZXhwIjoxNzA5NTMzMjY3fQ.6QyLCDYOphuqDXpRkACiw_kne48TgvsmI4iUMzdfG_k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-pyzr}}/games",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"games"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Game Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ3MDIxN2NiNjM2MTBhOGM1ZjJjYzkiLCJ1c2VyTmFtZSI6ImpvaG5Eb2UiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcwODY2OTI2NywiZXhwIjoxNzA5NTMzMjY3fQ.6QyLCDYOphuqDXpRkACiw_kne48TgvsmI4iUMzdfG_k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-pyzr}}/games/65d83e5af34faf787f12521b",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"games",
+								"65d83e5af34faf787f12521b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "Purchase Credit",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OWEyNDUzMWQ5ZmMxNjAyMGJmMjIiLCJ1c2VyTmFtZSI6ImpvaG5Eb2UiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcwODY5NDEyOSwiZXhwIjoxNzA5NTU4MTI5fQ.xaorPM-fIJhAlCQ7cqVQVhOp6ZLs6PTq80Auz6rncLg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 600\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-pyzr}}/transactions/purchase-credits",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"transactions",
+								"purchase-credits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Withdraw Credit",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OWEyNDUzMWQ5ZmMxNjAyMGJmMjIiLCJ1c2VyTmFtZSI6ImpvaG5Eb2UiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcwODY5NDEyOSwiZXhwIjoxNzA5NTU4MTI5fQ.xaorPM-fIJhAlCQ7cqVQVhOp6ZLs6PTq80Auz6rncLg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 200\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-pyzr}}/transactions/withdraw-credits",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"transactions",
+								"withdraw-credits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transactions by user id(admin only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OTk2ODUzMWQ5ZmMxNjAyMGJmMTkiLCJ1c2VyTmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDg2OTQwMDYsImV4cCI6MTcwOTU1ODAwNn0.B78-K7dUJEHBQtDdJcHUr4AsySqRlc2nwdaSHKvuMhU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-pyzr}}/transactions/user/65d89a24531d9fc16020bf22",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"transactions",
+								"user",
+								"65d89a24531d9fc16020bf22"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin Actions",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OTk2ODUzMWQ5ZmMxNjAyMGJmMTkiLCJ1c2VyTmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDg2OTQwMDYsImV4cCI6MTcwOTU1ODAwNn0.B78-K7dUJEHBQtDdJcHUr4AsySqRlc2nwdaSHKvuMhU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-pyzr}}/admin/users",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Transactions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OTk2ODUzMWQ5ZmMxNjAyMGJmMTkiLCJ1c2VyTmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDg2OTQwMDYsImV4cCI6MTcwOTU1ODAwNn0.B78-K7dUJEHBQtDdJcHUr4AsySqRlc2nwdaSHKvuMhU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-pyzr}}/admin/transactions",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"admin",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Transactions Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OTk2ODUzMWQ5ZmMxNjAyMGJmMTkiLCJ1c2VyTmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDg2OTQwMDYsImV4cCI6MTcwOTU1ODAwNn0.B78-K7dUJEHBQtDdJcHUr4AsySqRlc2nwdaSHKvuMhU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-pyzr}}/admin/gameplays",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"admin",
+								"gameplays"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OTk2ODUzMWQ5ZmMxNjAyMGJmMTkiLCJ1c2VyTmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDg2OTQwMDYsImV4cCI6MTcwOTU1ODAwNn0.B78-K7dUJEHBQtDdJcHUr4AsySqRlc2nwdaSHKvuMhU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n    \"userName\": \"AdminCreated2\",\n    \"email\": \"johndoeCreatedByAdmin2@example.com\",\n    \"password_hash\": \"securePassword123\",\n    \"profile\":{\n        \"name\":\"Jon Doe Created By Admin2\"\n    }\n  \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-pyzr}}/admin/users",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OTk2ODUzMWQ5ZmMxNjAyMGJmMTkiLCJ1c2VyTmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDg2OTQwMDYsImV4cCI6MTcwOTU1ODAwNn0.B78-K7dUJEHBQtDdJcHUr4AsySqRlc2nwdaSHKvuMhU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userName\": \"john_doe\",\n    \"email\": \"john@example.com\",\n    \"profile\": {\n      \"name\": \"John Doe\",\n      \"credits\": 100\n    }\n  }\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-pyzr}}/admin/users/65d8f1c3676b0d43164a2d7a",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"admin",
+								"users",
+								"65d8f1c3676b0d43164a2d7a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Credit",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OTk2ODUzMWQ5ZmMxNjAyMGJmMTkiLCJ1c2VyTmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDg2OTQwMDYsImV4cCI6MTcwOTU1ODAwNn0.B78-K7dUJEHBQtDdJcHUr4AsySqRlc2nwdaSHKvuMhU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// {\n//     \"type\":\"purchase\",\n//     \"amount\":500\n// }\n\n{\n    \"type\":\"withdrawal\",\n    \"amount\":2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-pyzr}}/admin/users/65d8f1c3676b0d43164a2d7a/credits",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"admin",
+								"users",
+								"65d8f1c3676b0d43164a2d7a",
+								"credits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OTk2ODUzMWQ5ZmMxNjAyMGJmMTkiLCJ1c2VyTmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDg2OTQwMDYsImV4cCI6MTcwOTU1ODAwNn0.B78-K7dUJEHBQtDdJcHUr4AsySqRlc2nwdaSHKvuMhU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// {\n//     \"status\": \"blocked\"\n// }\n\n{\n    \"status\": \"active\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-pyzr}}/admin/users/65d8f1c3676b0d43164a2d7a/status",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"admin",
+								"users",
+								"65d8f1c3676b0d43164a2d7a",
+								"status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Analytics",
+			"item": [
+				{
+					"name": "Analytics Transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OTk2ODUzMWQ5ZmMxNjAyMGJmMTkiLCJ1c2VyTmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDg2OTQwMDYsImV4cCI6MTcwOTU1ODAwNn0.B78-K7dUJEHBQtDdJcHUr4AsySqRlc2nwdaSHKvuMhU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-pyzr}}/analytics/transactions",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"analytics",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Analytics User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OTk2ODUzMWQ5ZmMxNjAyMGJmMTkiLCJ1c2VyTmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDg2OTQwMDYsImV4cCI6MTcwOTU1ODAwNn0.B78-K7dUJEHBQtDdJcHUr4AsySqRlc2nwdaSHKvuMhU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-pyzr}}/analytics/users",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"analytics",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Analytics Gameplay",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4OTk2ODUzMWQ5ZmMxNjAyMGJmMTkiLCJ1c2VyTmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDg2OTQwMDYsImV4cCI6MTcwOTU1ODAwNn0.B78-K7dUJEHBQtDdJcHUr4AsySqRlc2nwdaSHKvuMhU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-pyzr}}/analytics/gameplays",
+							"host": [
+								"{{url-pyzr}}"
+							],
+							"path": [
+								"analytics",
+								"gameplays"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access-token-user-pryzr}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:5000/api/v1/"
+		},
+		{
+			"key": "access-token-user-pryzr",
+			"value": "eyJfaWQiOiI2NWQ2ZDk0Y2QyZjNmOGU5OWVlOTA5NDMiLCJ1c2VyTmFtZSI6ImpvaG5Eb2UiLCJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3MDg1NzkxNjMsImV4cCI6MTcwOTQ0MzE2M30.08Kef0jU5QM27IsHDImT2vwanb8uT_DAOAvIvqSPJrc"
+		}
+	]
+}
