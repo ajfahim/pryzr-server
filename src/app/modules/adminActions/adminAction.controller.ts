@@ -68,10 +68,22 @@ const updateStatus = catchAsync(async (req, res) => {
   });
 });
 
+const getAllTransactions = catchAsync(async (req, res) => {
+  const result = await AdminServices.getAllTransactions(req.query);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Transactions retrieved successfully',
+    data: result,
+  });
+});
+
 export const AdminControllers = {
   getAllUsers,
   createNewUser,
   updateUser,
   updateCredits,
   updateStatus,
+  getAllTransactions,
 };

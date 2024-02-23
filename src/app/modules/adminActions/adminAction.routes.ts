@@ -35,4 +35,6 @@ router.put(
   AdminControllers.updateStatus,
 );
 
+router.get('/transactions', auth('admin'), AdminControllers.getAllTransactions);
+
 export const AdminActionRoutes = router;

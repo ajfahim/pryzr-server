@@ -3,6 +3,7 @@ import { Types } from 'mongoose';
 import AppError from '../../errors/AppError';
 import { TUser } from '../User/user.interface';
 import { User } from '../User/user.model';
+import { Transaction } from '../transaction/transaction.model';
 
 const getAllUsers = async (query: Record<string, unknown>) => {
   const page = Number(query?.page) || 1;
@@ -101,10 +102,52 @@ const updateStatus = async (
   }
 };
 
+const getAllTransactions = async (query: Record<string, unknown>) => {
+  const page = Number(query?.page) || 1;
+  const limit = Number(query?.limit) || 10;
+
+  const transactions = await Transaction.aggregatePaginate(
+    Transaction.aggregate([
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'user_id',
+          foreignField: '_id',
+          as: 'user',
+          pipeline: [
+            {
+              $project: {
+                userName: 1,
+                email: 1,
+                role: 1,
+              },
+            },
+          ],
+        },
+      },
+      {
+        $unwind: '$user',
+      },
+      {
+        $project: {
+          user_id: 0,
+        },
+      },
+    ]),
+    {
+      limit,
+      page,
+    },
+  );
+
+  return transactions;
+};
+
 export const AdminServices = {
   getAllUsers,
   createNewUser,
   updateUser,
   updateCredits,
   updateStatus,
+  getAllTransactions,
 };

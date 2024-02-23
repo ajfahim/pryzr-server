@@ -1,5 +1,6 @@
 import { Schema, Types, model } from 'mongoose';
 import { TTransaction } from './transaction.interface';
+import aggregatePaginate from 'mongoose-aggregate-paginate-v2';
 
 const transactionSchema = new Schema<TTransaction>(
   {
@@ -25,6 +26,7 @@ const transactionSchema = new Schema<TTransaction>(
   { timestamps: true },
 );
 
+transactionSchema.plugin(aggregatePaginate);
 export const Transaction = model<TTransaction>(
   'Transaction',
   transactionSchema,
