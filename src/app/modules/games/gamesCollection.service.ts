@@ -49,7 +49,13 @@ const getGames = async (query: Record<string, unknown>) => {
   const games = await Games.find({}).skip(skip);
   return games;
 };
+
+const getGameDetails = async (gameId: string) => {
+  const game = await Games.findById(gameId);
+  return game;
+};
 export const gamesServices = {
   createGame,
   getGames,
+  getGameDetails,
 };

@@ -27,7 +27,20 @@ const getGames = catchAsync(async (req, res) => {
   });
 });
 
+const getGameDetails = catchAsync(async (req, res) => {
+  const { gameId } = req.params;
+  const result = await gamesServices.getGameDetails(gameId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Game Details retrieved successfully',
+    data: result,
+  });
+});
+
 export const gamesController = {
   createGame,
   getGames,
+  getGameDetails,
 };

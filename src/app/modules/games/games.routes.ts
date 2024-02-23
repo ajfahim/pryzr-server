@@ -14,5 +14,6 @@ router.post(
   gamesController.createGame,
 );
 router.get('/', auth('user'), gamesController.getGames);
+router.get('/:gameId', auth('user'), gamesController.getGameDetails);
 
 export const GamesRoutes = router;
