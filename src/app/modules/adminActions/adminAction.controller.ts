@@ -26,7 +26,37 @@ const createNewUser = catchAsync(async (req, res) => {
   });
 });
 
+const updateUser = catchAsync(async (req, res) => {
+  const payload = req.body;
+  const { userId } = req.params;
+
+  const result = await AdminServices.updateUser(userId, payload);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User Updated successfully',
+    data: result,
+  });
+});
+
+const updateCredits = catchAsync(async (req, res) => {
+  const payload = req.body;
+  const { userId } = req.params;
+
+  const result = await AdminServices.updateCredits(userId, payload);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Credits Updated successfully',
+    data: result,
+  });
+});
+
 export const AdminControllers = {
   getAllUsers,
   createNewUser,
+  updateUser,
+  updateCredits,
 };
