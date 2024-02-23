@@ -16,6 +16,20 @@ const purchaseCredit = catchAsync(async (req, res) => {
   });
 });
 
+const withdrawCredits = catchAsync(async (req, res) => {
+  const user_id = req.user._id;
+  const payload = req.body;
+  const result = await TransactionServices.withdrawCredits(user_id, payload);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Transaction successful',
+    data: result,
+  });
+});
+
 export const TransactionControllers = {
   purchaseCredit,
+  withdrawCredits,
 };

@@ -32,6 +32,52 @@ const purchaseCredit = async (user_id: string, payload: TTransaction) => {
     };
     user.actions.push(action);
 
+    user.profile.credits += payload.amount;
+
+    await user.save({ session });
+
+    await session.commitTransaction();
+    await session.endSession();
+
+    return result;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    await session.abortTransaction();
+    await session.endSession();
+    console.error(err);
+    throw new Error(err);
+  }
+};
+
+const withdrawCredits = async (user_id: string, payload: TTransaction) => {
+  const session = await mongoose.startSession();
+  try {
+    session.startTransaction();
+    //create new entry to transaction collection
+    const transaction = { ...payload, user_id, type: 'withdrawal' };
+    const result = await Transaction.create([transaction], { session });
+    if (!result) {
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        'Failed to create transaction',
+      );
+    }
+
+    //create new log to users collection
+    const user = await User.findById(user_id);
+    if (!user) {
+      throw new AppError(httpStatus.NOT_FOUND, 'User not found');
+    }
+    const action: TAction = {
+      action_type: 'credit_withdrawal',
+      credits: payload.amount,
+      timeStamp: new Date(),
+    };
+    user.actions.push(action);
+
+    user.profile.credits -= payload.amount;
+
     await user.save({ session });
 
     await session.commitTransaction();
@@ -50,4 +96,5 @@ const purchaseCredit = async (user_id: string, payload: TTransaction) => {
 
 export const TransactionServices = {
   purchaseCredit,
+  withdrawCredits,
 };

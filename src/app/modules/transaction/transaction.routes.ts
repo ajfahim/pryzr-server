@@ -7,9 +7,20 @@ const router = express.Router();
 
 router.post(
   '/purchase-credits',
-  validateRequest(TransactionValidations.purchaseCreditValidationSchema),
+  validateRequest(
+    TransactionValidations.purchaseOrWithdrawCreditValidationSchema,
+  ),
   auth('user'),
   TransactionControllers.purchaseCredit,
+);
+
+router.post(
+  '/withdraw-credits',
+  validateRequest(
+    TransactionValidations.purchaseOrWithdrawCreditValidationSchema,
+  ),
+  auth('user'),
+  TransactionControllers.withdrawCredits,
 );
 
 export const TransactionRoutes = router;
