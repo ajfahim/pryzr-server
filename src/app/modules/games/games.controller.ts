@@ -16,6 +16,20 @@ const createGame = catchAsync(async (req, res) => {
   });
 });
 
+const postGamePlay = catchAsync(async (req, res) => {
+  const payload = req.body;
+  const { _id } = req.user;
+
+  const result = await gamesServices.postGamePlay(payload, _id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Game play record created successfully',
+    data: result,
+  });
+});
+
 const getGames = catchAsync(async (req, res) => {
   const result = await gamesServices.getGames(req.query);
 
@@ -43,4 +57,5 @@ export const gamesController = {
   createGame,
   getGames,
   getGameDetails,
+  postGamePlay,
 };

@@ -3,6 +3,8 @@ import mongoose, { Types } from 'mongoose';
 import AppError from '../../errors/AppError';
 import { TAction } from '../User/user.interface';
 import { User } from '../User/user.model';
+import { GamePlayRecord } from '../gameplayRecords/gamePlayRecords.model';
+import { TGamePlayRecord } from '../gameplayRecords/gameplayRecords.interface';
 import { TGames } from './games.interface';
 import { Games } from './games.model';
 
@@ -54,8 +56,23 @@ const getGameDetails = async (gameId: string) => {
   const game = await Games.findById(gameId);
   return game;
 };
+
+const postGamePlay = async (payload: TGamePlayRecord, _id: Types.ObjectId) => {
+  try {
+    const gamePlayRecordPayload = { ...payload, user_id: _id };
+
+    const newRecord = GamePlayRecord.create(gamePlayRecordPayload);
+    return newRecord;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    throw new Error(err);
+  }
+};
+
 export const gamesServices = {
   createGame,
   getGames,
   getGameDetails,
+  postGamePlay,
 };
