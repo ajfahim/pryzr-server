@@ -32,7 +32,7 @@ const purchaseCredit = async (user_id: string, payload: TTransaction) => {
     };
     user.actions.push(action);
 
-    user.profile.credits += payload.amount;
+    user.profile.credits! += payload.amount;
 
     await user.save({ session });
 
@@ -76,7 +76,7 @@ const withdrawCredits = async (user_id: string, payload: TTransaction) => {
     };
     user.actions.push(action);
 
-    user.profile.credits -= payload.amount;
+    user.profile.credits! -= payload.amount;
 
     await user.save({ session });
 
