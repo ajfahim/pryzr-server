@@ -41,6 +41,15 @@ const createGame = async (payload: TGames, _id: Types.ObjectId) => {
     throw new Error(err);
   }
 };
+
+const getGames = async (query: Record<string, unknown>) => {
+  const page = Number(query?.page) || 1;
+  const limit = Number(query?.limit) || 10;
+  const skip = (page - 1) * limit;
+  const games = await Games.find({}).skip(skip);
+  return games;
+};
 export const gamesServices = {
   createGame,
+  getGames,
 };

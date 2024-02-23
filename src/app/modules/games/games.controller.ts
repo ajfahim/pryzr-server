@@ -16,6 +16,18 @@ const createGame = catchAsync(async (req, res) => {
   });
 });
 
+const getGames = catchAsync(async (req, res) => {
+  const result = await gamesServices.getGames(req.query);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Games retrieved successfully',
+    data: result,
+  });
+});
+
 export const gamesController = {
   createGame,
+  getGames,
 };

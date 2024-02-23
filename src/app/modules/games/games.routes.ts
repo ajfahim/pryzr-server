@@ -13,5 +13,6 @@ router.post(
   validateRequest(gamesCollectionValidation.createGameValidationSchema),
   gamesController.createGame,
 );
+router.get('/', auth('user'), gamesController.getGames);
 
 export const GamesRoutes = router;

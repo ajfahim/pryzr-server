@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import aggregatePaginate from 'mongoose-aggregate-paginate-v2';
 import { TGames } from './games.interface';
 
 const gamesSchema = new Schema<TGames>(
@@ -10,5 +11,7 @@ const gamesSchema = new Schema<TGames>(
   },
   { timestamps: true },
 );
+
+gamesSchema.plugin(aggregatePaginate);
 
 export const Games = model<TGames>('Games', gamesSchema);
