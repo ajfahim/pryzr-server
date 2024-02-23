@@ -77,6 +77,18 @@ const resetPassword = catchAsync(async (req, res) => {
   });
 });
 
+const getActionHistory = catchAsync(async (req, res) => {
+  const userId = req.user._id;
+  const result = await UserServices.getActionHistory(userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Password reset successful',
+    data: result,
+  });
+});
+
 export const UserControllers = {
   register,
   login,
@@ -84,4 +96,5 @@ export const UserControllers = {
   updateProfile,
   resetPasswordRequest,
   resetPassword,
+  getActionHistory,
 };

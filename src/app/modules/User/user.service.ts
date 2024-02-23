@@ -136,6 +136,16 @@ const resetPasswordRequest = async (_id: Types.ObjectId) => {
   sendEmail('ajfahim52@gmail.com', passwordResetLink);
 };
 
+const getActionHistory = async (_id: Types.ObjectId) => {
+  const user = await User.findById(_id);
+
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, 'User not found');
+  }
+
+  return user.actions;
+};
+
 export const UserServices = {
   register,
   login,
@@ -143,4 +153,5 @@ export const UserServices = {
   updateProfile,
   resetPasswordRequest,
   resetPassword,
+  getActionHistory,
 };

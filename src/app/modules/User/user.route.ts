@@ -34,5 +34,6 @@ router.put(
   validateRequest(UserValidation.userResetPasswordValidationSchema),
   UserControllers.resetPassword,
 );
+router.get('/actions', auth('user'), UserControllers.getActionHistory);
 
 export const UserRoutes = router;
