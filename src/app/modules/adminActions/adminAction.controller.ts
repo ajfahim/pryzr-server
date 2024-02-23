@@ -43,8 +43,9 @@ const updateUser = catchAsync(async (req, res) => {
 const updateCredits = catchAsync(async (req, res) => {
   const payload = req.body;
   const { userId } = req.params;
+  const adminId = req.user._id;
 
-  const result = await AdminServices.updateCredits(userId, payload);
+  const result = await AdminServices.updateCredits(userId, adminId, payload);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -57,8 +58,9 @@ const updateCredits = catchAsync(async (req, res) => {
 const updateStatus = catchAsync(async (req, res) => {
   const payload = req.body;
   const { userId } = req.params;
+  const adminId = req.user._id;
 
-  const result = await AdminServices.updateStatus(userId, payload);
+  const result = await AdminServices.updateStatus(userId, adminId, payload);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

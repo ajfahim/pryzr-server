@@ -8,6 +8,11 @@ const adminActionSchema = new Schema<TAdminAction>({
     ref: 'users',
     required: true,
   },
+  admin_id: {
+    type: Types.ObjectId,
+    ref: 'users',
+    required: true,
+  },
   action: {
     type: String,
     enum: adminActionTypesForModel,
@@ -15,7 +20,6 @@ const adminActionSchema = new Schema<TAdminAction>({
   },
   details: {
     type: String,
-    required: true,
   },
   date: {
     type: Date,

@@ -2,7 +2,7 @@ export const AdminActionTypes = {
   create_user: 'create_user',
   reset_password: 'reset_password',
   change_credit: 'change_credit',
-  restrict_user: 'restrict_user',
+  change_status: 'change_status',
 } as const;
 
 /*

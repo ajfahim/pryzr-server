@@ -1,9 +1,11 @@
 import httpStatus from 'http-status';
-import { Types } from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import AppError from '../../errors/AppError';
 import { TUser } from '../User/user.interface';
 import { User } from '../User/user.model';
 import { Transaction } from '../transaction/transaction.model';
+import { TAdminAction } from './adminAction.interface';
+import { AdminAction } from './adminAction.model';
 
 const getAllUsers = async (query: Record<string, unknown>) => {
   const page = Number(query?.page) || 1;
@@ -61,51 +63,105 @@ const updateUser = async (_id: string, payload: TUser) => {
 };
 
 const updateCredits = async (
-  _id: string,
+  user_id: string,
+  admin_id: string,
   payload: { type: 'purchase' | 'withdrawal'; amount: number },
 ) => {
-  const user = await User.findById(_id);
+  const user = await User.findById(user_id);
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'User not found');
   }
+  const session = await mongoose.startSession();
+  try {
+    session.startTransaction();
+    if (payload.type === 'purchase') {
+      user.profile.credits! += payload.amount;
+      await user.save({ session });
+    }
 
-  if (payload.type === 'purchase') {
-    user.profile.credits! += payload.amount;
-    await user.save();
-  }
+    if (payload.type === 'withdrawal') {
+      user.profile.credits! -= payload.amount;
+      await user.save({ session });
+    }
 
-  if (payload.type === 'withdrawal') {
-    user.profile.credits! -= payload.amount;
-    await user.save();
+    const adminActionPayload: TAdminAction = {
+      action: 'change_credit',
+      user_id,
+      admin_id,
+      date: new Date(),
+      details: `Changed Credit`,
+    };
+
+    await AdminAction.create([adminActionPayload], {
+      session,
+    });
+
+    await session.commitTransaction();
+    await session.endSession();
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    await session.abortTransaction();
+    await session.endSession();
+    console.error(err);
+    throw new Error(err);
   }
 };
 
 const updateStatus = async (
-  _id: string,
+  user_id: string,
+  admin_id: string,
   payload: { status: 'active' | 'blocked' },
 ) => {
-  const user = await User.findById(_id);
+  const user = await User.findById(user_id);
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'User not found');
   }
 
-  if (payload.status === 'active') {
-    user.profile.status! = 'active';
-    await user.save();
-  }
+  const session = await mongoose.startSession();
+  try {
+    session.startTransaction();
 
-  if (payload.status === 'blocked') {
-    user.profile.status! = 'blocked';
-    await user.save();
+    if (payload.status === 'active') {
+      user.profile.status! = 'active';
+      await user.save({ session });
+    }
+
+    if (payload.status === 'blocked') {
+      user.profile.status! = 'blocked';
+      await user.save({ session });
+    }
+
+    const adminActionPayload: TAdminAction = {
+      action: 'change_status',
+      user_id,
+      admin_id,
+      date: new Date(),
+      details: `changed status to ${payload.status}`,
+    };
+
+    await AdminAction.create([adminActionPayload], {
+      session,
+    });
+
+    await session.commitTransaction();
+    await session.endSession();
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    await session.abortTransaction();
+    await session.endSession();
+    console.error(err);
+    throw new Error(err);
   }
 };
 
 const getAllTransactions = async (query: Record<string, unknown>) => {
   const page = Number(query?.page) || 1;
   const limit = Number(query?.limit) || 10;
-
+  //@ts-expect-error not a error
   const transactions = await Transaction.aggregatePaginate(
     Transaction.aggregate([
       {
